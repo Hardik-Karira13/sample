@@ -1,18 +1,18 @@
 package hk1
 
-import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
 
-@Service(First)
-interface FirstService {
+@Transactional
+class FirstService {
 
-    First get(Serializable id)
-
-    List<First> list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    First save(First first)
-
+    def method1() {
+        First f2=First.findByUserName(session.email)
+        // byte[] imageInByte = f2.photo
+         response.contentType = 'image/jpg' // or the appropriate image content type
+         OutputStream out = response.outputStream
+         out.write(f2.photo)
+         out.close()
+         println f2.photo
+         //println(actionUri)*/
+    }
 }
